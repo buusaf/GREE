@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
+# Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP", "MP\MP.csproj", "{D3F1ACBC-E658-4B59-9CF3-A2A11D3A6715}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP.Data", "MP.Data\MP.Data.csproj", "{84DFD4F1-1C15-4E0E-B36D-CC8DFC74FDCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05A93728-5BDA-4990-8F36-F58AD397CE17}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectIdea.txt = ProjectIdea.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

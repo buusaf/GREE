@@ -1,0 +1,2 @@
+Potrebno e da se vodi evidencija za sekoj korisnik i negovata sostojba na smetkata.
+Sekoj korisnik moze da vnesuva sekoj pat koga ke izvadi pari od negovata smetka, kako i poedinecno na sto se potroseni parite,
