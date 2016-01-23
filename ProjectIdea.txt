@@ -1,2 +1,12 @@
 Potrebno e da se vodi evidencija za sekoj korisnik i negovata sostojba na smetkata.
 Sekoj korisnik moze da vnesuva sekoj pat koga ke izvadi pari od negovata smetka, kako i poedinecno na sto se potroseni parite,
+Odnosno:
+	* Vnesuvanje kolku pari se izvadeni i datum. 
+	* Vnesuvanje kolku pari se potroseni i za sto, podeleni na tip (Payment)
+		{
+			* Kredit
+			* Zaem
+			* Smetki
+			* itn...
+		}
+Tip na korisnik: Administrator moze da gi pregleduva site korisnici.
