@@ -24,12 +24,29 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Profile <span class="caret"></span>
+                       </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("User Profile", "Index", "UserProfile")</li>
+                            <li>@Html.ActionLink("Monthly Sallary", "Index", "MonthlySallary")</li>
+                            <li>@Html.ActionLink("Monthly Payment", "Index", "MonthlyPayment")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.Partial("_ChangeLanguage")
+                </div>
+            </div>
+        </div>
         @RenderBody()
         <hr />
         <footer>
@@ -39,6 +56,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
 </body>
 </html>

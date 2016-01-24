@@ -1,0 +1,33 @@
+﻿@{
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+}
+
+@helper selected(string c, string culture)
+{
+    if (c.ToLowerInvariant() == culture)
+    { 
+        @:checked = "checked"
+    }
+}
+
+
+@using (Html.BeginForm("SetCulture","Home"))
+{
+    <fieldset>
+        <legend>@MP.Resources.Translation.ChooseLanguage</legend>
+        <div class="input-group">
+            <input name="culture" id="en-US" value="en-US" type="radio" @selected("en-US",culture) /> English
+
+            <input name="culture" id="mk-MK" value="mk-MK" type="radio" @selected("mk-MK", culture) /> Македонски
+        </div>
+    </fieldset>
+}
+
+<script type="text/javascript">
+        $(function() {
+            $("input[type = 'radio']").click(function () {
+                $(this).parents("form").submit(); // post form
+            });
+
+        })(jQuery);
+</script>

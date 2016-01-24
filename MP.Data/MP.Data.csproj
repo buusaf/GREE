@@ -59,6 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="MetadataGenerator.Context1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetadataGenerator.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetadataGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetadataGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="MonthlyPayment.cs">
       <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
     </Compile>
@@ -76,9 +86,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MonthlyPaymentModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="MonthlyPaymentType.cs">
-      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MonthlySallary.cs">
       <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
@@ -99,6 +106,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="MetadataGenerator.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MetadataGenerator.Context1.cs</LastGenOutput>
+    </None>
+    <None Include="MetadataGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MetadataGenerator.cs</LastGenOutput>
+    </None>
     <None Include="MonthlyPaymentModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MonthlyPaymentModel.Context.cs</LastGenOutput>
@@ -119,6 +134,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MP.Resources\MP.Resources.csproj">
+      <Project>{14478476-6df3-488f-986c-ba82f54fbae9}</Project>
+      <Name>MP.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

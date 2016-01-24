@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/24/2016 13:44:51
+-- Date Created: 01/24/2016 19:35:51
 -- Generated from EDMX file: D:\Work\GREE\MP.Data\MonthlyPaymentModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,38 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlySallary]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlySallary] DROP CONSTRAINT [FK_UserProfileMonthlySallary];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlyPayment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPayment] DROP CONSTRAINT [FK_UserProfileMonthlyPayment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_MonthlyPayment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_MonthlyPayment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_PaymentType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_PaymentType];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[MonthlyPayment]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MonthlyPayment];
+GO
+IF OBJECT_ID(N'[dbo].[UserProfile]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserProfile];
+GO
+IF OBJECT_ID(N'[dbo].[MonthlySallary]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MonthlySallary];
+GO
+IF OBJECT_ID(N'[dbo].[PaymentType]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PaymentType];
+GO
+IF OBJECT_ID(N'[dbo].[MonthlyPaymentPaymentType]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MonthlyPaymentPaymentType];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -44,7 +71,6 @@ CREATE TABLE [dbo].[UserProfile] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL,
     [Active] bit  NOT NULL
 );
 GO
@@ -68,11 +94,10 @@ CREATE TABLE [dbo].[PaymentType] (
 );
 GO
 
--- Creating table 'MonthlyPaymentType'
-CREATE TABLE [dbo].[MonthlyPaymentType] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [MonthlyPaymentId] int  NOT NULL,
-    [PaymentTypeId] int  NOT NULL
+-- Creating table 'MonthlyPaymentPaymentType'
+CREATE TABLE [dbo].[MonthlyPaymentPaymentType] (
+    [MonthlyPayment_Id] int  NOT NULL,
+    [PaymentType_Id] int  NOT NULL
 );
 GO
 
@@ -104,10 +129,10 @@ ADD CONSTRAINT [PK_PaymentType]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'MonthlyPaymentType'
-ALTER TABLE [dbo].[MonthlyPaymentType]
-ADD CONSTRAINT [PK_MonthlyPaymentType]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+-- Creating primary key on [MonthlyPayment_Id], [PaymentType_Id] in table 'MonthlyPaymentPaymentType'
+ALTER TABLE [dbo].[MonthlyPaymentPaymentType]
+ADD CONSTRAINT [PK_MonthlyPaymentPaymentType]
+    PRIMARY KEY CLUSTERED ([MonthlyPayment_Id], [PaymentType_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -129,36 +154,6 @@ ON [dbo].[MonthlySallary]
     ([UserProfileId]);
 GO
 
--- Creating foreign key on [MonthlyPaymentId] in table 'MonthlyPaymentType'
-ALTER TABLE [dbo].[MonthlyPaymentType]
-ADD CONSTRAINT [FK_MonthlyPaymentMonthlyPaymentType]
-    FOREIGN KEY ([MonthlyPaymentId])
-    REFERENCES [dbo].[MonthlyPayment]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_MonthlyPaymentMonthlyPaymentType'
-CREATE INDEX [IX_FK_MonthlyPaymentMonthlyPaymentType]
-ON [dbo].[MonthlyPaymentType]
-    ([MonthlyPaymentId]);
-GO
-
--- Creating foreign key on [PaymentTypeId] in table 'MonthlyPaymentType'
-ALTER TABLE [dbo].[MonthlyPaymentType]
-ADD CONSTRAINT [FK_PaymentTypeMonthlyPaymentType]
-    FOREIGN KEY ([PaymentTypeId])
-    REFERENCES [dbo].[PaymentType]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PaymentTypeMonthlyPaymentType'
-CREATE INDEX [IX_FK_PaymentTypeMonthlyPaymentType]
-ON [dbo].[MonthlyPaymentType]
-    ([PaymentTypeId]);
-GO
-
 -- Creating foreign key on [UserProfileId] in table 'MonthlyPayment'
 ALTER TABLE [dbo].[MonthlyPayment]
 ADD CONSTRAINT [FK_UserProfileMonthlyPayment]
@@ -172,6 +167,30 @@ GO
 CREATE INDEX [IX_FK_UserProfileMonthlyPayment]
 ON [dbo].[MonthlyPayment]
     ([UserProfileId]);
+GO
+
+-- Creating foreign key on [MonthlyPayment_Id] in table 'MonthlyPaymentPaymentType'
+ALTER TABLE [dbo].[MonthlyPaymentPaymentType]
+ADD CONSTRAINT [FK_MonthlyPaymentPaymentType_MonthlyPayment]
+    FOREIGN KEY ([MonthlyPayment_Id])
+    REFERENCES [dbo].[MonthlyPayment]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [PaymentType_Id] in table 'MonthlyPaymentPaymentType'
+ALTER TABLE [dbo].[MonthlyPaymentPaymentType]
+ADD CONSTRAINT [FK_MonthlyPaymentPaymentType_PaymentType]
+    FOREIGN KEY ([PaymentType_Id])
+    REFERENCES [dbo].[PaymentType]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MonthlyPaymentPaymentType_PaymentType'
+CREATE INDEX [IX_FK_MonthlyPaymentPaymentType_PaymentType]
+ON [dbo].[MonthlyPaymentPaymentType]
+    ([PaymentType_Id]);
 GO
 
 -- --------------------------------------------------

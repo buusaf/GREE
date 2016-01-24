@@ -29,6 +29,5 @@ namespace MP.Data
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<MonthlySallary> MonthlySallary { get; set; }
         public virtual DbSet<PaymentType> PaymentType { get; set; }
-        public virtual DbSet<MonthlyPaymentType> MonthlyPaymentType { get; set; }
     }
 }

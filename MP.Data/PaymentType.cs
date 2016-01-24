@@ -14,10 +14,9 @@ namespace MP.Data
     
     public partial class PaymentType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PaymentType()
         {
-            this.MonthlyPaymentType = new HashSet<MonthlyPaymentType>();
+            this.MonthlyPayment = new HashSet<MonthlyPayment>();
         }
     
         public int Id { get; set; }
@@ -25,7 +24,6 @@ namespace MP.Data
         public string Description { get; set; }
         public bool Active { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonthlyPaymentType> MonthlyPaymentType { get; set; }
+        public virtual ICollection<MonthlyPayment> MonthlyPayment { get; set; }
     }
 }

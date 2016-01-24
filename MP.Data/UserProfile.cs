@@ -14,7 +14,6 @@ namespace MP.Data
     
     public partial class UserProfile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserProfile()
         {
             this.MonthlySallary = new HashSet<MonthlySallary>();
@@ -25,11 +24,8 @@ namespace MP.Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool Active { get; set; }
-        public string fkUser { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySallary> MonthlySallary { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlyPayment> MonthlyPayment { get; set; }
     }
 }

@@ -4,128 +4,127 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MonthlyPaymentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="MonthlyPayment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Year" Type="int" Nullable="false" />
-          <Property Name="Month" Type="int" Nullable="false" />
-          <Property Name="DateOfTransaction" Type="datetime" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="UserProfileId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MonthlyPaymentType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MonthlyPaymentId" Type="int" Nullable="false" />
-          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="MonthlySallary">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Month" Type="int" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="UserProfileId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaymentType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_MonthlyPaymentMonthlyPaymentType">
-          <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="1" />
-          <End Role="MonthlyPaymentType" Type="Self.MonthlyPaymentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthlyPayment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlyPaymentType">
-              <PropertyRef Name="MonthlyPaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentTypeMonthlyPaymentType">
-          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
-          <End Role="MonthlyPaymentType" Type="Self.MonthlyPaymentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlyPaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfileMonthlyPayment">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="UserProfileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfileMonthlySallary">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
-          <End Role="MonthlySallary" Type="Self.MonthlySallary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlySallary">
-              <PropertyRef Name="UserProfileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MonthlyPaymentModelStoreContainer">
-          <EntitySet Name="MonthlyPayment" EntityType="Self.MonthlyPayment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MonthlyPaymentType" EntityType="Self.MonthlyPaymentType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MonthlySallary" EntityType="Self.MonthlySallary" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_MonthlyPaymentMonthlyPaymentType" Association="Self.FK_MonthlyPaymentMonthlyPaymentType">
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
-            <End Role="MonthlyPaymentType" EntitySet="MonthlyPaymentType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentTypeMonthlyPaymentType" Association="Self.FK_PaymentTypeMonthlyPaymentType">
-            <End Role="PaymentType" EntitySet="PaymentType" />
-            <End Role="MonthlyPaymentType" EntitySet="MonthlyPaymentType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfileMonthlyPayment" Association="Self.FK_UserProfileMonthlyPayment">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfileMonthlySallary" Association="Self.FK_UserProfileMonthlySallary">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="MonthlySallary" EntitySet="MonthlySallary" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="MonthlyPaymentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MonthlyPaymentModelStoreContainer">
+    <EntitySet Name="MonthlyPayment" EntityType="MonthlyPaymentModel.Store.MonthlyPayment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserProfile" EntityType="MonthlyPaymentModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MonthlySallary" EntityType="MonthlyPaymentModel.Store.MonthlySallary" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaymentType" EntityType="MonthlyPaymentModel.Store.PaymentType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MonthlyPaymentPaymentType" EntityType="MonthlyPaymentModel.Store.MonthlyPaymentPaymentType" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserProfileMonthlySallary" Association="MonthlyPaymentModel.Store.UserProfileMonthlySallary">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="MonthlySallary" EntitySet="MonthlySallary" />
+    </AssociationSet>
+    <AssociationSet Name="UserProfileMonthlyPayment" Association="MonthlyPaymentModel.Store.UserProfileMonthlyPayment">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonthlyPaymentPaymentType_MonthlyPayment" Association="MonthlyPaymentModel.Store.FK_MonthlyPaymentPaymentType_MonthlyPayment">
+      <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
+      <End Role="MonthlyPaymentPaymentType" EntitySet="MonthlyPaymentPaymentType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonthlyPaymentPaymentType_PaymentType" Association="MonthlyPaymentModel.Store.FK_MonthlyPaymentPaymentType_PaymentType">
+      <End Role="PaymentType" EntitySet="PaymentType" />
+      <End Role="MonthlyPaymentPaymentType" EntitySet="MonthlyPaymentPaymentType" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MonthlyPayment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="DateOfTransaction" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserProfileId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonthlySallary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserProfileId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonthlyPaymentPaymentType">
+    <Key>
+      <PropertyRef Name="MonthlyPayment_Id" />
+      <PropertyRef Name="PaymentType_Id" />
+    </Key>
+    <Property Name="MonthlyPayment_Id" Type="int" Nullable="false" />
+    <Property Name="PaymentType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserProfileMonthlySallary">
+    <End Role="UserProfile" Type="MonthlyPaymentModel.Store.UserProfile" Multiplicity="1" />
+    <End Role="MonthlySallary" Type="MonthlyPaymentModel.Store.MonthlySallary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MonthlySallary">
+        <PropertyRef Name="UserProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserProfileMonthlyPayment">
+    <End Role="UserProfile" Type="MonthlyPaymentModel.Store.UserProfile" Multiplicity="1" />
+    <End Role="MonthlyPayment" Type="MonthlyPaymentModel.Store.MonthlyPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MonthlyPayment">
+        <PropertyRef Name="UserProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonthlyPaymentPaymentType_MonthlyPayment">
+    <End Role="MonthlyPayment" Type="MonthlyPaymentModel.Store.MonthlyPayment" Multiplicity="1" />
+    <End Role="MonthlyPaymentPaymentType" Type="MonthlyPaymentModel.Store.MonthlyPaymentPaymentType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonthlyPayment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MonthlyPaymentPaymentType">
+        <PropertyRef Name="MonthlyPayment_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonthlyPaymentPaymentType_PaymentType">
+    <End Role="MonthlyPaymentPaymentType" Type="MonthlyPaymentModel.Store.MonthlyPaymentPaymentType" Multiplicity="*" />
+    <End Role="PaymentType" Type="MonthlyPaymentModel.Store.PaymentType" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MonthlyPaymentPaymentType">
+        <PropertyRef Name="PaymentType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MonthlyPaymentModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -138,18 +137,13 @@
             <End EntitySet="MonthlySallary" Role="MonthlySallary" />
           </AssociationSet>
           <EntitySet Name="PaymentType" EntityType="MonthlyPaymentModel.PaymentType" />
-          <EntitySet Name="MonthlyPaymentType" EntityType="MonthlyPaymentModel.MonthlyPaymentType" />
-          <AssociationSet Name="MonthlyPaymentMonthlyPaymentType" Association="MonthlyPaymentModel.MonthlyPaymentMonthlyPaymentType">
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
-            <End Role="MonthlyPaymentType" EntitySet="MonthlyPaymentType" />
-          </AssociationSet>
-          <AssociationSet Name="PaymentTypeMonthlyPaymentType" Association="MonthlyPaymentModel.PaymentTypeMonthlyPaymentType">
-            <End Role="PaymentType" EntitySet="PaymentType" />
-            <End Role="MonthlyPaymentType" EntitySet="MonthlyPaymentType" />
-          </AssociationSet>
           <AssociationSet Name="UserProfileMonthlyPayment" Association="MonthlyPaymentModel.UserProfileMonthlyPayment">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
+          </AssociationSet>
+          <AssociationSet Name="MonthlyPaymentPaymentType" Association="MonthlyPaymentModel.MonthlyPaymentPaymentType">
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
+            <End Role="PaymentType" EntitySet="PaymentType" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="MonthlyPayment">
@@ -162,9 +156,9 @@
           <Property Name="DateOfTransaction" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="MonthlyPaymentType" Relationship="MonthlyPaymentModel.MonthlyPaymentMonthlyPaymentType" FromRole="MonthlyPayment" ToRole="MonthlyPaymentType" />
           <NavigationProperty Name="UserProfile" Relationship="MonthlyPaymentModel.UserProfileMonthlyPayment" FromRole="MonthlyPayment" ToRole="UserProfile" />
           <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PaymentType" Relationship="MonthlyPaymentModel.MonthlyPaymentPaymentType" FromRole="MonthlyPayment" ToRole="PaymentType" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -176,7 +170,6 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="MonthlySallary" Relationship="MonthlyPaymentModel.UserProfileMonthlySallary" FromRole="UserProfile" ToRole="MonthlySallary" />
           <NavigationProperty Name="MonthlyPayment" Relationship="MonthlyPaymentModel.UserProfileMonthlyPayment" FromRole="UserProfile" ToRole="MonthlyPayment" />
-          <Property Name="fkUser" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="MonthlySallary">
           <Key>
@@ -209,42 +202,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="MonthlyPaymentType" Relationship="MonthlyPaymentModel.PaymentTypeMonthlyPaymentType" FromRole="PaymentType" ToRole="MonthlyPaymentType" />
+          <NavigationProperty Name="MonthlyPayment" Relationship="MonthlyPaymentModel.MonthlyPaymentPaymentType" FromRole="PaymentType" ToRole="MonthlyPayment" />
         </EntityType>
-        <EntityType Name="MonthlyPaymentType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MonthlyPayment" Relationship="MonthlyPaymentModel.MonthlyPaymentMonthlyPaymentType" FromRole="MonthlyPaymentType" ToRole="MonthlyPayment" />
-          <Property Name="MonthlyPaymentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PaymentType" Relationship="MonthlyPaymentModel.PaymentTypeMonthlyPaymentType" FromRole="MonthlyPaymentType" ToRole="PaymentType" />
-          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <Association Name="MonthlyPaymentMonthlyPaymentType">
-          <End Type="MonthlyPaymentModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="1" />
-          <End Type="MonthlyPaymentModel.MonthlyPaymentType" Role="MonthlyPaymentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthlyPayment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlyPaymentType">
-              <PropertyRef Name="MonthlyPaymentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PaymentTypeMonthlyPaymentType">
-          <End Type="MonthlyPaymentModel.PaymentType" Role="PaymentType" Multiplicity="1" />
-          <End Type="MonthlyPaymentModel.MonthlyPaymentType" Role="MonthlyPaymentType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MonthlyPaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="UserProfileMonthlyPayment">
           <End Type="MonthlyPaymentModel.UserProfile" Role="UserProfile" Multiplicity="1" />
           <End Type="MonthlyPaymentModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
@@ -256,6 +215,10 @@
               <PropertyRef Name="UserProfileId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="MonthlyPaymentPaymentType">
+          <End Type="MonthlyPaymentModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <End Type="MonthlyPaymentModel.PaymentType" Role="PaymentType" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -307,16 +270,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MonthlyPaymentType">
-      <EntityTypeMapping TypeName="IsTypeOf(MonthlyPaymentModel.MonthlyPaymentType)">
-        <MappingFragment StoreEntitySet="MonthlyPaymentType">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="MonthlyPaymentId" ColumnName="MonthlyPaymentId" />
-          <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-          </EntityContainerMapping>
+    <AssociationSetMapping Name="MonthlyPaymentPaymentType" TypeName="MonthlyPaymentModel.MonthlyPaymentPaymentType" StoreEntitySet="MonthlyPaymentPaymentType">
+      <EndProperty Name="MonthlyPayment">
+        <ScalarProperty Name="Id" ColumnName="MonthlyPayment_Id" />
+      </EndProperty>
+      <EndProperty Name="PaymentType">
+        <ScalarProperty Name="Id" ColumnName="PaymentType_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
@@ -338,15 +300,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6e867a4a265c4bc4b976a941eed6854b" Name="Diagram1" ZoomLevel="79">
-        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlyPayment" Width="1.5" PointX="3.875" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MonthlyPaymentModel.UserProfile" Width="1.5" PointX="3.875" PointY="0.5" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlyPayment" Width="1.5" PointX="1.875" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.UserProfile" Width="1.5" PointX="2.75" PointY="0.5" />
         <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlySallary" Width="1.5" PointX="6.75" PointY="0.5" />
         <AssociationConnector Association="MonthlyPaymentModel.UserProfileMonthlySallary" />
         <EntityTypeShape EntityType="MonthlyPaymentModel.PaymentType" Width="1.5" PointX="7.875" PointY="3.125" />
-        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlyPaymentType" Width="1.75" PointX="5.75" PointY="3.125" />
-        <AssociationConnector Association="MonthlyPaymentModel.MonthlyPaymentMonthlyPaymentType" />
-        <AssociationConnector Association="MonthlyPaymentModel.PaymentTypeMonthlyPaymentType" />
         <AssociationConnector Association="MonthlyPaymentModel.UserProfileMonthlyPayment" />
+        <AssociationConnector Association="MonthlyPaymentModel.MonthlyPaymentPaymentType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
