@@ -12,7 +12,8 @@ namespace MP.Controllers
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
-            string cultureName = null;
+            string cultureName = RouteData.Values["culture"] as string; 
+            //string cultureName = null;
 
             HttpCookie cookie = Request.Cookies["_culture"];
             if (cookie != null)
