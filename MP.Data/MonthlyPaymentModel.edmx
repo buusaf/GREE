@@ -10,7 +10,12 @@
     <EntitySet Name="UserProfile" EntityType="MonthlyPaymentModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MonthlySallary" EntityType="MonthlyPaymentModel.Store.MonthlySallary" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PaymentType" EntityType="MonthlyPaymentModel.Store.PaymentType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetRoles" EntityType="MonthlyPaymentModel.Store.AspNetRoles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetUsers" EntityType="MonthlyPaymentModel.Store.AspNetUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetUserClaims" EntityType="MonthlyPaymentModel.Store.AspNetUserClaims" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetUserLogins" EntityType="MonthlyPaymentModel.Store.AspNetUserLogins" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MonthlyPaymentPaymentType" EntityType="MonthlyPaymentModel.Store.MonthlyPaymentPaymentType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AspNetUserRoles" EntityType="MonthlyPaymentModel.Store.AspNetUserRoles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserProfileMonthlySallary" Association="MonthlyPaymentModel.Store.UserProfileMonthlySallary">
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="MonthlySallary" EntitySet="MonthlySallary" />
@@ -26,6 +31,26 @@
     <AssociationSet Name="FK_MonthlyPaymentPaymentType_PaymentType" Association="MonthlyPaymentModel.Store.FK_MonthlyPaymentPaymentType_PaymentType">
       <End Role="PaymentType" EntitySet="PaymentType" />
       <End Role="MonthlyPaymentPaymentType" EntitySet="MonthlyPaymentPaymentType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="MonthlyPaymentModel.Store.FK_AspNetUserRoles_AspNetRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="MonthlyPaymentModel.Store.FK_AspNetUserRoles_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="UserProfileAspNetUsers" Association="MonthlyPaymentModel.Store.UserProfileAspNetUsers">
+      <End Role="UserProfile" EntitySet="UserProfile" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="MonthlyPaymentModel.Store.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="MonthlyPaymentModel.Store.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="MonthlyPayment">
@@ -48,6 +73,7 @@
     <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="AspNetUsers_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="MonthlySallary">
     <Key>
@@ -68,6 +94,49 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" Nullable="true" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="ClaimType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="ProviderKey" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
   <EntityType Name="MonthlyPaymentPaymentType">
     <Key>
       <PropertyRef Name="MonthlyPayment_Id" />
@@ -75,6 +144,14 @@
     </Key>
     <Property Name="MonthlyPayment_Id" Type="int" Nullable="false" />
     <Property Name="PaymentType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="AspNetRoles_Id" />
+      <PropertyRef Name="AspNetUsers_Id" />
+    </Key>
+    <Property Name="AspNetRoles_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="AspNetUsers_Id" Type="nvarchar" Nullable="false" MaxLength="128" />
   </EntityType>
   <Association Name="UserProfileMonthlySallary">
     <End Role="UserProfile" Type="MonthlyPaymentModel.Store.UserProfile" Multiplicity="1" />
@@ -97,6 +174,46 @@
       </Principal>
       <Dependent Role="MonthlyPayment">
         <PropertyRef Name="UserProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserProfileAspNetUsers">
+    <End Role="UserProfile" Type="MonthlyPaymentModel.Store.UserProfile" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="MonthlyPaymentModel.Store.AspNetUsers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="AspNetUsers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="MonthlyPaymentModel.Store.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="MonthlyPaymentModel.Store.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="MonthlyPaymentModel.Store.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="MonthlyPaymentModel.Store.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -124,6 +241,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetRoles">
+    <End Role="AspNetRoles" Type="MonthlyPaymentModel.Store.AspNetRoles" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="MonthlyPaymentModel.Store.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="AspNetRoles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUsers">
+    <End Role="AspNetUserRoles" Type="MonthlyPaymentModel.Store.AspNetUserRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="MonthlyPaymentModel.Store.AspNetUsers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="AspNetUsers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -144,6 +285,26 @@
           <AssociationSet Name="MonthlyPaymentPaymentType" Association="MonthlyPaymentModel.MonthlyPaymentPaymentType">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
             <End Role="PaymentType" EntitySet="PaymentType" />
+          </AssociationSet>
+          <EntitySet Name="AspNetRoles" EntityType="MonthlyPaymentModel.AspNetRoles" />
+          <EntitySet Name="AspNetUsers" EntityType="MonthlyPaymentModel.AspNetUsers" />
+          <AssociationSet Name="AspNetUserRoles" Association="MonthlyPaymentModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfileAspNetUsers" Association="MonthlyPaymentModel.UserProfileAspNetUsers">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="AspNetUserClaims" EntityType="MonthlyPaymentModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="MonthlyPaymentModel.AspNetUserLogins" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="MonthlyPaymentModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="MonthlyPaymentModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="MonthlyPayment">
@@ -170,6 +331,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="MonthlySallary" Relationship="MonthlyPaymentModel.UserProfileMonthlySallary" FromRole="UserProfile" ToRole="MonthlySallary" />
           <NavigationProperty Name="MonthlyPayment" Relationship="MonthlyPaymentModel.UserProfileMonthlyPayment" FromRole="UserProfile" ToRole="MonthlyPayment" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MonthlyPaymentModel.UserProfileAspNetUsers" FromRole="UserProfile" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="MonthlySallary">
           <Key>
@@ -219,6 +381,92 @@
         <Association Name="MonthlyPaymentPaymentType">
           <End Type="MonthlyPaymentModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
           <End Type="MonthlyPaymentModel.PaymentType" Role="PaymentType" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MonthlyPaymentModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="MonthlyPaymentModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="UserProfile" Relationship="MonthlyPaymentModel.UserProfileAspNetUsers" FromRole="AspNetUsers" ToRole="UserProfile" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="MonthlyPaymentModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="MonthlyPaymentModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+        </EntityType>
+        <Association Name="AspNetUserRoles">
+          <End Type="MonthlyPaymentModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="MonthlyPaymentModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <Association Name="UserProfileAspNetUsers">
+          <End Type="MonthlyPaymentModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="MonthlyPaymentModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+        </Association>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MonthlyPaymentModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="MonthlyPaymentModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="MonthlyPaymentModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MonthlyPaymentModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="MonthlyPaymentModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MonthlyPaymentModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -270,12 +518,73 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="IsTypeOf(MonthlyPaymentModel.AspNetRoles)">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(MonthlyPaymentModel.AspNetUsers)">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="IsTypeOf(MonthlyPaymentModel.AspNetUserClaims)">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="IsTypeOf(MonthlyPaymentModel.AspNetUserLogins)">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="MonthlyPaymentPaymentType" TypeName="MonthlyPaymentModel.MonthlyPaymentPaymentType" StoreEntitySet="MonthlyPaymentPaymentType">
       <EndProperty Name="MonthlyPayment">
         <ScalarProperty Name="Id" ColumnName="MonthlyPayment_Id" />
       </EndProperty>
       <EndProperty Name="PaymentType">
         <ScalarProperty Name="Id" ColumnName="PaymentType_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="MonthlyPaymentModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserProfileAspNetUsers" TypeName="MonthlyPaymentModel.UserProfileAspNetUsers" StoreEntitySet="UserProfile">
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
+      </EndProperty>
+      <EndProperty Name="UserProfile">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
@@ -299,14 +608,22 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e867a4a265c4bc4b976a941eed6854b" Name="Diagram1" ZoomLevel="79">
-        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlyPayment" Width="1.5" PointX="1.875" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MonthlyPaymentModel.UserProfile" Width="1.5" PointX="2.75" PointY="0.5" />
-        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlySallary" Width="1.5" PointX="6.75" PointY="0.5" />
+      <Diagram DiagramId="6e867a4a265c4bc4b976a941eed6854b" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlyPayment" Width="1.5" PointX="5.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.UserProfile" Width="1.5" PointX="5.5" PointY="0.625" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.MonthlySallary" Width="1.5" PointX="7.5" PointY="0.625" />
         <AssociationConnector Association="MonthlyPaymentModel.UserProfileMonthlySallary" />
-        <EntityTypeShape EntityType="MonthlyPaymentModel.PaymentType" Width="1.5" PointX="7.875" PointY="3.125" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.PaymentType" Width="1.5" PointX="7.625" PointY="3.125" />
         <AssociationConnector Association="MonthlyPaymentModel.UserProfileMonthlyPayment" />
         <AssociationConnector Association="MonthlyPaymentModel.MonthlyPaymentPaymentType" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.AspNetUsers" Width="1.5" PointX="2.875" PointY="0.625" />
+        <AssociationConnector Association="MonthlyPaymentModel.AspNetUserRoles" />
+        <AssociationConnector Association="MonthlyPaymentModel.UserProfileAspNetUsers" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.AspNetUserClaims" Width="1.5" PointX="5.125" PointY="9.75" />
+        <EntityTypeShape EntityType="MonthlyPaymentModel.AspNetUserLogins" Width="1.5" PointX="5.125" PointY="7.25" />
+        <AssociationConnector Association="MonthlyPaymentModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="MonthlyPaymentModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

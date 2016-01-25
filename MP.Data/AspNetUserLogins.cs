@@ -12,21 +12,12 @@ namespace MP.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class UserProfile
+    public partial class AspNetUserLogins
     {
-        public UserProfile()
-        {
-            this.MonthlySallary = new HashSet<MonthlySallary>();
-            this.MonthlyPayment = new HashSet<MonthlyPayment>();
-        }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public bool Active { get; set; }
-    
-        public virtual ICollection<MonthlySallary> MonthlySallary { get; set; }
-        public virtual ICollection<MonthlyPayment> MonthlyPayment { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

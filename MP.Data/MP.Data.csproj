@@ -58,6 +58,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="IdentityModels.cs" />
     <Compile Include="MetadataGenerator.Context1.cs">
       <AutoGen>True</AutoGen>

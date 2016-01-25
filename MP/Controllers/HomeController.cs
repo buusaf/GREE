@@ -1,5 +1,4 @@
-﻿using MP.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +6,7 @@ using System.Web.Mvc;
 
 namespace MP.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {
@@ -28,21 +27,5 @@ namespace MP.Controllers
             return View();
         }
 
-        public ActionResult SetCulture(string culture)
-        {
-            culture = CultureHelper.GetImplementedCulture(culture);
-            HttpCookie cookie = Request.Cookies["_culture"];
-
-            if (cookie != null)
-                cookie.Value = culture;
-            else
-            {
-                cookie = new HttpCookie("_culture");
-                cookie.Value = culture;
-                cookie.Expires = DateTime.Now.AddYears(1);
-            }
-            Response.Cookies.Add(cookie);
-            return RedirectToAction("Index");
-        }
     }
 }

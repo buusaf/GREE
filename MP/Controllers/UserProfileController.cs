@@ -10,7 +10,7 @@ using MP.Data;
 
 namespace MP.Controllers
 {
-    public class UserProfileController : BaseController
+    public class UserProfileController : Controller
     {
         private MonthlyPaymentModelContainer db = new MonthlyPaymentModelContainer();
 
