@@ -1,0 +1,29 @@
+﻿@model System.Data.DataTable 
+<div class="table-responsive">
+    <table class="table table-striped">
+        @{
+            bool paintedHeader = false;
+        }
+        @foreach (System.Data.DataRow item in Model.Rows)
+        {
+            if (!paintedHeader)
+	        {
+		        <thead>
+                        <tr>
+                            @foreach (System.Data.DataColumn headerRow in Model.Columns)
+                            {
+                                <th> @headerRow.ColumnName</th>
+                            }
+                        </tr>
+                    </thead> 
+                paintedHeader = true;
+	        }
+            <tr>
+                @foreach (var val in item.ItemArray)
+	            {
+		            <td> @val.ToString() </td>
+	            }
+            </tr>
+        }
+    </table>
+</div>

@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -58,18 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetRoles.cs">
-      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaims.cs">
-      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogins.cs">
-      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUsers.cs">
-      <DependentUpon>MonthlyPaymentModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Helper\AdoConnection.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="MetadataGenerator.Context1.cs">
       <AutoGen>True</AutoGen>

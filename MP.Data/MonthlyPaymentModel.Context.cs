@@ -29,9 +29,5 @@ namespace MP.Data
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<MonthlySallary> MonthlySallary { get; set; }
         public virtual DbSet<PaymentType> PaymentType { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
     }
 }

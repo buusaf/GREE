@@ -7,13 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MP.Data;
+using MP.Data.Helper;
 
 namespace MP.Controllers
 {
     public class UserProfileController : Controller
     {
         private MonthlyPaymentModelContainer db = new MonthlyPaymentModelContainer();
-
+        private AdoConnection adoConn = new AdoConnection();
         // GET: UserProfile
         public ActionResult Index()
         {
@@ -113,6 +114,24 @@ namespace MP.Controllers
             db.UserProfile.Remove(userProfile);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ShowReport()
+        {
+            try
+            {
+                DataTable dt = adoConn.ExecuteStored("spTest");
+                return PartialView("_ShowReport",dt);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            } 
+        }
+
+        public ActionResult ListReport()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

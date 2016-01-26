@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/25/2016 22:28:34
+-- Date Created: 01/26/2016 22:52:23
 -- Generated from EDMX file: D:\Work\GREE\MP.Data\MonthlyPaymentModel.edmx
 -- --------------------------------------------------
 
@@ -17,26 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlySallary]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MonthlySallary] DROP CONSTRAINT [FK_UserProfileMonthlySallary];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlyPayment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MonthlyPayment] DROP CONSTRAINT [FK_UserProfileMonthlyPayment];
-GO
-IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_MonthlyPayment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_MonthlyPayment];
-GO
-IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_PaymentType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_PaymentType];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AspNetUserRoles_AspNetRoles]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_AspNetUserRoles_AspNetRoles];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AspNetUserRoles_AspNetUsers]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_AspNetUserRoles_AspNetUsers];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserProfileAspNetUsers]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UserProfile] DROP CONSTRAINT [FK_UserProfileAspNetUsers];
 GO
 IF OBJECT_ID(N'[dbo].[FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId];
@@ -44,28 +29,25 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AspNetUserLogins] DROP CONSTRAINT [FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId];
 GO
+IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_MonthlyPayment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_MonthlyPayment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MonthlyPaymentPaymentType_PaymentType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPaymentPaymentType] DROP CONSTRAINT [FK_MonthlyPaymentPaymentType_PaymentType];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlyPayment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlyPayment] DROP CONSTRAINT [FK_UserProfileMonthlyPayment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserProfileMonthlySallary]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MonthlySallary] DROP CONSTRAINT [FK_UserProfileMonthlySallary];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[MonthlyPayment]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[MonthlyPayment];
-GO
-IF OBJECT_ID(N'[dbo].[UserProfile]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserProfile];
-GO
-IF OBJECT_ID(N'[dbo].[MonthlySallary]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[MonthlySallary];
-GO
-IF OBJECT_ID(N'[dbo].[PaymentType]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PaymentType];
-GO
 IF OBJECT_ID(N'[dbo].[AspNetRoles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetRoles];
-GO
-IF OBJECT_ID(N'[dbo].[AspNetUsers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AspNetUsers];
 GO
 IF OBJECT_ID(N'[dbo].[AspNetUserClaims]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetUserClaims];
@@ -73,11 +55,26 @@ GO
 IF OBJECT_ID(N'[dbo].[AspNetUserLogins]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetUserLogins];
 GO
+IF OBJECT_ID(N'[dbo].[AspNetUserRoles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AspNetUserRoles];
+GO
+IF OBJECT_ID(N'[dbo].[AspNetUsers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AspNetUsers];
+GO
+IF OBJECT_ID(N'[dbo].[MonthlyPayment]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MonthlyPayment];
+GO
 IF OBJECT_ID(N'[dbo].[MonthlyPaymentPaymentType]', 'U') IS NOT NULL
     DROP TABLE [dbo].[MonthlyPaymentPaymentType];
 GO
-IF OBJECT_ID(N'[dbo].[AspNetUserRoles]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AspNetUserRoles];
+IF OBJECT_ID(N'[dbo].[MonthlySallary]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MonthlySallary];
+GO
+IF OBJECT_ID(N'[dbo].[PaymentType]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PaymentType];
+GO
+IF OBJECT_ID(N'[dbo].[UserProfile]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserProfile];
 GO
 
 -- --------------------------------------------------
@@ -101,8 +98,7 @@ CREATE TABLE [dbo].[UserProfile] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
-    [Active] bit  NOT NULL,
-    [AspNetUsers_Id] nvarchar(128)  NOT NULL
+    [Active] bit  NOT NULL
 );
 GO
 
@@ -323,21 +319,6 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_AspNetUserRoles_AspNetUsers'
 CREATE INDEX [IX_FK_AspNetUserRoles_AspNetUsers]
 ON [dbo].[AspNetUserRoles]
-    ([AspNetUsers_Id]);
-GO
-
--- Creating foreign key on [AspNetUsers_Id] in table 'UserProfile'
-ALTER TABLE [dbo].[UserProfile]
-ADD CONSTRAINT [FK_UserProfileAspNetUsers]
-    FOREIGN KEY ([AspNetUsers_Id])
-    REFERENCES [dbo].[AspNetUsers]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserProfileAspNetUsers'
-CREATE INDEX [IX_FK_UserProfileAspNetUsers]
-ON [dbo].[UserProfile]
     ([AspNetUsers_Id]);
 GO
 

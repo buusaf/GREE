@@ -27,6 +27,5 @@ namespace MP.Data
     
         public virtual ICollection<MonthlySallary> MonthlySallary { get; set; }
         public virtual ICollection<MonthlyPayment> MonthlyPayment { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }
